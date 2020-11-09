@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Accordion from './components/Accordion';
 import Search from './components/Search';
 import DropDown from './components/DropDown';
@@ -36,10 +36,27 @@ const options = [
 ];
 
 const App = () => {
+    const [selected, setSelected] = useState(options[0]);
+    const [showDropdown, setShowDropdown] = useState(true);
+
     return (
         <div className='app'>
             <div className='ui container'>
-                <DropDown options={options} />
+                <button
+                    onClick={() => {
+                        setShowDropdown(!showDropdown);
+                    }}
+                >
+                    Toggle Dropdown
+                </button>
+                { showDropdown ? 
+                    (<DropDown
+                        selected={selected}
+                        onSelectedChange={setSelected}
+                        options={options}
+                    /> )
+                    : null
+                }
             </div>
         </div>
     );
